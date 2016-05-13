@@ -59,9 +59,7 @@ static char WJPhotoAssetKey;
     
     
     // Video Image
-    UIImage *videoIndicatorImage = [UIImage imageForResourcePath:@"VideoOverlay"
-                                                          ofType:@"png"
-                                                        inBundle:[NSBundle bundleForClass:[self class]]];
+    UIImage *videoIndicatorImage = [UIImage imageForResourcePath:@"VideoOverlay" ofType:@"png"];
     _videoIndicator = [[UIImageView alloc] init];
     _videoIndicator.frame = CGRectMake(self.bounds.size.width - videoIndicatorImage.size.width - VIDEO_INDICATOR_PADDING, self.bounds.size.height - videoIndicatorImage.size.height - VIDEO_INDICATOR_PADDING, videoIndicatorImage.size.width, videoIndicatorImage.size.height);
     _videoIndicator.image = videoIndicatorImage;
@@ -74,8 +72,8 @@ static char WJPhotoAssetKey;
     [self setSelectedButton:selectedButton];
     _selectedButton.contentMode = UIViewContentModeTopRight;
     _selectedButton.adjustsImageWhenHighlighted = NO;
-    [_selectedButton setImage:[UIImage imageForResourcePath:@"ImageSelectedSmallOff" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]] forState:UIControlStateNormal];
-    [_selectedButton setImage:[UIImage imageForResourcePath:@"ImageSelectedSmallOn" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]] forState:UIControlStateSelected];
+    [_selectedButton setImage:[UIImage imageForResourcePath:@"ImageSelectedSmallOff" ofType:@"png"] forState:UIControlStateNormal];
+    [_selectedButton setImage:[UIImage imageForResourcePath:@"ImageSelectedSmallOn" ofType:@"png"] forState:UIControlStateSelected];
     [_selectedButton addTarget:self action:@selector(selectionButtonPressed) forControlEvents:UIControlEventTouchDown];
     _selectedButton.frame = CGRectMake(0, 0, 44, 44);
     _selectedButton.hidden = YES;
@@ -171,7 +169,7 @@ static char WJPhotoAssetKey;
     if (![_photoAsset respondsToSelector:@selector(emptyImage)] || !_photoAsset.emptyImage) {
         if (!_loadingError) {
             _loadingError = [[UIImageView alloc] init];
-            _loadingError.image = [UIImage imageForResourcePath:@"ImageError" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]];
+            _loadingError.image = [UIImage imageForResourcePath:@"ImageError" ofType:@"png"];
             _loadingError.userInteractionEnabled = NO;
             [_loadingError sizeToFit];
             [self addSubview:_loadingError];

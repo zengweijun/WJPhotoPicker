@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImage (WJPhoto)
-+ (UIImage *)imageForResourcePath:(NSString *)path ofType:(NSString *)type inBundle:(NSBundle *)bundle;
++ (UIImage *)imageForResourcePath:(NSString *)path ofType:(NSString *)type;
 + (UIImage *)clearImageWithSize:(CGSize)size;
 @end
