@@ -10,7 +10,8 @@
 
 @implementation UIImage (WJPhoto)
 + (UIImage *)imageForResourcePath:(NSString *)path ofType:(NSString *)type inBundle:(NSBundle *)bundle {
-    return [UIImage imageWithContentsOfFile:[bundle pathForResource:path ofType:type]];
+    NSString *imgPath = [[NSBundle mainBundle] pathForResource:path ofType:type];
+    return [UIImage imageWithContentsOfFile:imgPath];
 }
 
 + (UIImage *)clearImageWithSize:(CGSize)size {
