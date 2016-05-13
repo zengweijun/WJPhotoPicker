@@ -14,11 +14,12 @@
 
 
 Example:(Please See The Demo)
-Initialize:
+- Initialize:
+
     _photoGroup = [[WJPhotoGroupController alloc] init];
     _photoGroup.mediaType = WJPhotoMediaTypePhoto;
 
-Select Photos:
+- Select Photos:
 - (IBAction)openAlbum:(id)sender {
     NSInteger maxCount = 9;
     self.photoGroup.maxCount = maxCount - self.photos.count;
