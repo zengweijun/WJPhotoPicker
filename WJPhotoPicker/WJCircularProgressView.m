@@ -1,6 +1,6 @@
 //
 //  WJCircularProgressView.m
-//  DACircularProgress
+//  WJCircularProgressView
 //
 //  Created by Daniel Amitay on 2/6/12.
 //  Copyright (c) 2012 Daniel Amitay. All rights reserved.
@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface DACircularProgressLayer : CALayer
+@interface WJCircularProgressLayer : CALayer
 
 @property(nonatomic, strong) UIColor *trackTintColor;
 @property(nonatomic, strong) UIColor *progressTintColor;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation DACircularProgressLayer
+@implementation WJCircularProgressLayer
 
 @dynamic trackTintColor;
 @dynamic progressTintColor;
@@ -141,12 +141,12 @@
 
 + (Class)layerClass
 {
-    return [DACircularProgressLayer class];
+    return [WJCircularProgressLayer class];
 }
 
-- (DACircularProgressLayer *)circularProgressLayer
+- (WJCircularProgressLayer *)circularProgressLayer
 {
-    return (DACircularProgressLayer *)self.layer;
+    return (WJCircularProgressLayer *)self.layer;
 }
 
 - (id)init
