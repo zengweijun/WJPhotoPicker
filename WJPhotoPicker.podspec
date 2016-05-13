@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "WJPhotoPicker"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "A simple and easy to use photo picker."
 
   s.author       = { "zwj" => "niuszeng@sina.com" }
