@@ -1,6 +1,6 @@
 //
-//  DACircularProgressView.h
-//  DACircularProgress
+//  WJCircularProgressView.h
+//  WJCircularProgressView
 //
 //  Created by Daniel Amitay on 2/6/12.
 //  Copyright (c) 2012 Daniel Amitay. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DACircularProgressView : UIView
+@interface WJCircularProgressView : UIView
 
 @property(nonatomic, strong) UIColor *trackTintColor UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong) UIColor *progressTintColor UI_APPEARANCE_SELECTOR;

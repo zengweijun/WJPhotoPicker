@@ -40,7 +40,7 @@
 		38ED06541CE56A31000DFA96 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06421CE56A31000DFA96 /* UIImageView+HighlightedWebCache.m */; };
 		38ED06551CE56A31000DFA96 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06441CE56A31000DFA96 /* UIImageView+WebCache.m */; };
 		38ED06561CE56A31000DFA96 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06461CE56A31000DFA96 /* UIView+WebCacheOperation.m */; };
-		38ED06591CE56A57000DFA96 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06581CE56A57000DFA96 /* DACircularProgressView.m */; };
+		38ED06591CE56A57000DFA96 /* WJCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06581CE56A57000DFA96 /* WJCircularProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,8 +129,8 @@
 		38ED06441CE56A31000DFA96 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		38ED06451CE56A31000DFA96 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		38ED06461CE56A31000DFA96 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		38ED06571CE56A57000DFA96 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
-		38ED06581CE56A57000DFA96 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
+		38ED06571CE56A57000DFA96 /* WJCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJCircularProgressView.h; sourceTree = "<group>"; };
+		38ED06581CE56A57000DFA96 /* WJCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJCircularProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,8 +225,8 @@
 		38ED05911CE56631000DFA96 /* WJPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
-				38ED06571CE56A57000DFA96 /* DACircularProgressView.h */,
-				38ED06581CE56A57000DFA96 /* DACircularProgressView.m */,
+				38ED06571CE56A57000DFA96 /* WJCircularProgressView.h */,
+				38ED06581CE56A57000DFA96 /* WJCircularProgressView.m */,
 				38ED05921CE56631000DFA96 /* UIImage+WJPhoto.h */,
 				38ED05931CE56631000DFA96 /* UIImage+WJPhoto.m */,
 				38ED05941CE56631000DFA96 /* WJPhoto.h */,
@@ -442,7 +442,7 @@
 				38ED06511CE56A31000DFA96 /* UIImage+GIF.m in Sources */,
 				38ED06551CE56A31000DFA96 /* UIImageView+WebCache.m in Sources */,
 				38ED06491CE56A31000DFA96 /* SDImageCache.m in Sources */,
-				38ED06591CE56A57000DFA96 /* DACircularProgressView.m in Sources */,
+				38ED06591CE56A57000DFA96 /* WJCircularProgressView.m in Sources */,
 				38ED064D1CE56A31000DFA96 /* SDWebImageDownloaderOperation.m in Sources */,
 				38ED05AA1CE56631000DFA96 /* WJPhotoGridController.m in Sources */,
 				38ED064A1CE56A31000DFA96 /* SDWebImageCompat.m in Sources */,

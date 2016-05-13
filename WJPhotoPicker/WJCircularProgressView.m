@@ -1,12 +1,12 @@
 //
-//  DACircularProgressView.m
+//  WJCircularProgressView.m
 //  DACircularProgress
 //
 //  Created by Daniel Amitay on 2/6/12.
 //  Copyright (c) 2012 Daniel Amitay. All rights reserved.
 //
 
-#import "DACircularProgressView.h"
+#import "WJCircularProgressView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -117,16 +117,16 @@
 
 @end
 
-@interface DACircularProgressView ()
+@interface WJCircularProgressView ()
 
 @end
 
-@implementation DACircularProgressView
+@implementation WJCircularProgressView
 
 + (void) initialize
 {
-    if (self == [DACircularProgressView class]) {
-        DACircularProgressView *circularProgressViewAppearance = [DACircularProgressView appearance];
+    if (self == [WJCircularProgressView class]) {
+        WJCircularProgressView *circularProgressViewAppearance = [WJCircularProgressView appearance];
         [circularProgressViewAppearance setTrackTintColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3f]];
         [circularProgressViewAppearance setProgressTintColor:[UIColor whiteColor]];
         [circularProgressViewAppearance setBackgroundColor:[UIColor clearColor]];

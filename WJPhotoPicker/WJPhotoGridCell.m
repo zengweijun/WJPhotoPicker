@@ -9,7 +9,7 @@
 #import "WJPhotoGridCell.h"
 #import "WJPhotoCommon.h"
 #import "UIImage+WJPhoto.h"
-#import "DACircularProgressView.h"
+#import "WJCircularProgressView.h"
 #import "WJPhotoAsset.h"
 #import "WJPhotoGridController.h"
 #import <objc/runtime.h>
@@ -21,7 +21,7 @@ static char WJPhotoAssetKey;
     UIImageView *_imageView;
     UIImageView *_videoIndicator;
     UIImageView *_loadingError;
-    DACircularProgressView *_loadingIndicator;
+    WJCircularProgressView *_loadingIndicator;
 }
 
 @end
@@ -82,7 +82,7 @@ static char WJPhotoAssetKey;
     [self addSubview:_selectedButton];
     
     // Loading indicator
-    _loadingIndicator = [[DACircularProgressView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, 40.0f)];
+    _loadingIndicator = [[WJCircularProgressView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, 40.0f)];
     _loadingIndicator.userInteractionEnabled = NO;
     _loadingIndicator.thicknessRatio = 0.1;
     _loadingIndicator.roundedCorners = NO;
