@@ -35,7 +35,7 @@
     if (result == nil) return nil;
     if (result.count == 0) return nil;
     PHAsset *asset = result.lastObject;
-    if (self = [super initWithAsset:asset targetSize:thumbTargetSize()]) {
+    if (self = [super initWithAsset:asset targetSize:thumbTargetSize(COLUMNS)]) {
         self.caption = assetCollection.localizedTitle;
         self.count = result.count;
         self.assetCollection = assetCollection;

@@ -72,9 +72,114 @@
 }
 
 - (void)doneBtnCallback {
+    if (self.completedCallback) self.completedCallback(self.gridVc.seletedAssets);
     if (self.doneCallback) {
-        self.doneCallback(self.gridVc.selectedPhotos);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *images = [NSMutableArray array];
+            for (WJPhotoAsset *photoAsset in self.gridVc.seletedAssets) {
+                UIImage *image = [self synchronousGetImage:photoAsset thumb:NO];
+                if (image) [images addObject:image];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.doneCallback(images);
+            });
+        });
     }
+}
+
+- (UIImage *)synchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb {
+    if (photoAsset.aAsset) return [UIImage imageWithCGImage:thumb?photoAsset.aAsset.thumbnail:photoAsset.aAsset.defaultRepresentation.fullScreenImage];
+    
+    if (photoAsset.pAsset) {
+        PHImageManager *imgMgr = [PHImageManager defaultManager];
+        PHImageRequestOptions *options = [self optionsSynchronous:YES];
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {};
+        __block UIImage *image = nil;
+        [imgMgr requestImageForAsset:photoAsset.pAsset targetSize:thumb?thumbTargetSize(2):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            image = result;
+        }];
+        return image;
+    }
+    return nil;
+}
+
+- (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb completeCb:(void(^)(UIImage *image))completeCb {
+    if (photoAsset.aAsset) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            @autoreleasepool {
+                if (thumb) {
+                    UIImage *image = [UIImage imageWithCGImage:photoAsset.aAsset.thumbnail];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (completeCb) completeCb(image);
+                    });
+                } else {
+                    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+                    [assetsLibrary assetForURL:photoAsset.aAsset.defaultRepresentation.url resultBlock:^(ALAsset *asset) {
+                        ALAssetRepresentation *rep = [asset defaultRepresentation];
+                        CGImageRef iref = [rep fullResolutionImage];
+                        UIImage *image = [UIImage imageWithCGImage:iref];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (completeCb) completeCb(image);
+                        });
+                    } failureBlock:^(NSError *error) {
+                    }];
+                }
+            }
+        });
+    } else if (photoAsset.pAsset) {
+        PHImageManager *imgMgr = [PHImageManager defaultManager];
+        PHImageRequestOptions *options = [self optionsSynchronous:NO];
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {};
+        [imgMgr requestImageForAsset:photoAsset.pAsset targetSize:thumb?thumbTargetSize(2):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            // there is not error status
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completeCb) completeCb(result);
+            });
+        }];
+    }
+}
+
+- (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset completeCb:(void(^)(UIImage *originalImage, UIImage *thumbImage))completeCb {
+    if (photoAsset.aAsset) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            @autoreleasepool {
+                UIImage *tImage = [UIImage imageWithCGImage:photoAsset.aAsset.thumbnail];
+                ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+                [assetsLibrary assetForURL:photoAsset.aAsset.defaultRepresentation.url resultBlock:^(ALAsset *asset) {
+                    ALAssetRepresentation *rep = [asset defaultRepresentation];
+                    CGImageRef iref = [rep fullResolutionImage];
+                    UIImage *oImage = [UIImage imageWithCGImage:iref];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (completeCb) completeCb(oImage, tImage);
+                    });
+                } failureBlock:^(NSError *error) {
+                    if (completeCb) completeCb(nil, nil);
+                }];
+            }
+        });
+    } else if (photoAsset.pAsset) {
+        PHImageManager *imgMgr = [PHImageManager defaultManager];
+        PHImageRequestOptions *options = [self optionsSynchronous:YES];
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {};
+        __block UIImage *tImage = nil;
+        [imgMgr requestImageForAsset:photoAsset.pAsset targetSize:thumbTargetSize(2) contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            tImage = result;
+        }];
+        
+        options.synchronous = NO;
+        [imgMgr requestImageForAsset:photoAsset.pAsset targetSize:imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            if (completeCb) completeCb(result, tImage);
+        }];
+    }
+}
+
+- (PHImageRequestOptions *)optionsSynchronous:(BOOL)synchronous {
+    PHImageRequestOptions *options = [PHImageRequestOptions new];
+    options.networkAccessAllowed = YES;
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    options.synchronous = synchronous;
+    return options;
 }
 
 #pragma mark - Load data

@@ -40,11 +40,11 @@ typedef NS_ENUM(NSInteger, WJPhotoMediaType) {
 };
 
 // point --> pixel
-static inline CGSize thumbTargetSize() {
+static inline CGSize thumbTargetSize(NSUInteger columns) {
     return CGSizeMake(
-                      ([UIScreen mainScreen].scale * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) / COLUMNS),
+                      ([UIScreen mainScreen].scale * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) / columns),
                       
-                      ([UIScreen mainScreen].scale * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) / COLUMNS)
+                      ([UIScreen mainScreen].scale * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) / columns)
                       );
 }
 

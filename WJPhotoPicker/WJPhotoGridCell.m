@@ -14,7 +14,6 @@
 #import "WJPhotoGridController.h"
 #import <objc/runtime.h>
 
-static char WJPhotoAssetKey;
 #define VIDEO_INDICATOR_PADDING 10
 
 @interface WJPhotoGridCell() {
@@ -233,46 +232,23 @@ static char WJPhotoAssetKey;
 
 #pragma mark - Action
 - (void)selectionButtonPressed {
-    if (!_selectedButton.isSelected && _gridController.selectedPhotos.count >= _gridController.maxCount) {
+    if (!_selectedButton.isSelected && _gridController.seletedAssets.count >= _gridController.maxCount) {
         NSString *message = [NSString stringWithFormat:@"你最多只能选择%zd张照片", _gridController.maxCount];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
+    
     _photoAsset.selected = !_photoAsset.selected;
     _selectedButton.selected = _photoAsset.selected;
-    id<WJPhoto> bigPhoto = [self bigPhoto];
+    
     if (_selectedButton.selected) {
-        if (![_gridController.selectedPhotos containsObject:bigPhoto]) {
-            [_gridController.selectedPhotos addObject:bigPhoto];
-            [bigPhoto loadUnderlyingImageAndNotify];
-        }
+        if (![_gridController.seletedAssets containsObject:_photoAsset]) [_gridController.seletedAssets addObject:_photoAsset];
     } else {
-        // id<WJPhoto> bigPhoto = [self bigPhoto]; 该方法会创建一个新的photo
-        id<WJPhoto> bigPhoto = nil;
-        for (id<WJPhoto> photo in _gridController.selectedPhotos) {
-            WJPhotoAsset *pa = objc_getAssociatedObject(photo, &WJPhotoAssetKey);
-            if ([pa isEqual:_photoAsset]) {
-                bigPhoto = photo;
-                break;
-            }
-        }
-        if (bigPhoto) [_gridController.selectedPhotos removeObject:bigPhoto];
+        if ([_gridController.seletedAssets containsObject:_photoAsset]) [_gridController.seletedAssets removeObject:_photoAsset];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoGridCellSeletedButtonDidChage object:nil];
-}
-
-- (id<WJPhoto>)bigPhoto {
-    id<WJPhoto> photo = nil;
-    WJPhotoAsset *photoAsset = self.photoAsset;
-    if (photoAsset.aAsset) {
-        photo = [WJPhoto photoWithURL:photoAsset.aAsset.defaultRepresentation.url];
-    } else if (self.photoAsset.pAsset) {
-        photo = [WJPhoto photoWithAsset:photoAsset.pAsset targetSize:imageTargetSize()];
-    }
-    objc_setAssociatedObject(photo, &WJPhotoAssetKey, photoAsset, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return photo;
 }
 
 @end

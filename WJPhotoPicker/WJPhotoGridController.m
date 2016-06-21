@@ -28,7 +28,7 @@ UICollectionViewDelegateFlowLayout
 - (instancetype)init {
     if (self = [super init]) {
         _mediaType = WJPhotoMediaTypeAll;
-        _selectedPhotos = [NSMutableArray array];
+        _seletedAssets = [NSMutableArray array];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateToolBar) name:WJPhotoGridCellSeletedButtonDidChage object:nil];
     }
@@ -161,10 +161,10 @@ UICollectionViewDelegateFlowLayout
     }
     
     // Clear selectedAssets
-    if (_selectedPhotos == nil) {
-        _selectedPhotos = [NSMutableArray array];
+    if (_seletedAssets == nil) {
+        _seletedAssets = [NSMutableArray array];
     } else {
-        [_selectedPhotos removeAllObjects];
+        [_seletedAssets removeAllObjects];
     }
     
     [self updateToolBar];
@@ -186,7 +186,7 @@ UICollectionViewDelegateFlowLayout
             options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
             PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:self.group.assetCollection options:options];
             [result enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
-                WJPhotoAsset *photoAsset = [WJPhotoAsset photoWithAsset:obj targetSize:thumbTargetSize()];
+                WJPhotoAsset *photoAsset = [WJPhotoAsset photoWithAsset:obj targetSize:thumbTargetSize(COLUMNS)];
                 photoAsset.pAsset = obj;
                 switch (_mediaType) {
                     case WJPhotoMediaTypePhoto:
@@ -301,9 +301,9 @@ UICollectionViewDelegateFlowLayout
 
 #pragma mark - Notification
 - (void)updateToolBar {
-    NSString *title = [NSString stringWithFormat:@"完成(%zd)", _selectedPhotos.count];
+    NSString *title = [NSString stringWithFormat:@"完成(%zd)", _seletedAssets.count];
     [self.sendBtn setTitle:title forState:UIControlStateNormal];
-    if (_selectedPhotos.count) {
+    if (_seletedAssets.count) {
         self.sendBtn.enabled = YES;
     } else {
         self.sendBtn.enabled = NO;

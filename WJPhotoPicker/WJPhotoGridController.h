@@ -20,6 +20,6 @@
 @property (assign, nonatomic) BOOL selectionMode;
 @property (assign, nonatomic) WJPhotoMediaType mediaType;
 
-@property (strong, nonatomic) NSMutableArray *selectedPhotos;
+@property (strong, nonatomic) NSMutableArray *seletedAssets;
 
 @end

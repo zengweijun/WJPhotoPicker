@@ -17,4 +17,12 @@
 
 @property (assign, nonatomic) BOOL selected;
 
+
+
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+//@property (strong, nonatomic) PHAsset *asset;
+//#else
+//@property (strong, nonatomic) ALAsset *asset;
+//#endif
+
 @end
