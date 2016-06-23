@@ -27,11 +27,17 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#define iOS8      (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0)
+#define NOT_iOS8  (__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_8_0)
+
 #define iOS8_PHAsset @"PHAsset"
 #define PADDING 2.
 #define COLUMNS 4
 
 #define WJPhotoPickerDoneColor [UIColor colorWithRed:11 / 255. green:127 / 255. blue:255 / 255. alpha:1]
+
+#define WJPhotoGridCellSeletedButtonDidChage @"WJPhotoGridCellSeletedButtonDidChage"
+#define WJPhotoPickerDoneButtonClicked       @"WJPhotoPickerDoneButtonClicked"
 
 typedef NS_ENUM(NSInteger, WJPhotoMediaType) {
     WJPhotoMediaTypePhoto = 0,
@@ -39,6 +45,15 @@ typedef NS_ENUM(NSInteger, WJPhotoMediaType) {
     WJPhotoMediaTypeAll,
 };
 
+/*
+ // Target size
+ UIScreen *screen = [UIScreen mainScreen];
+ CGFloat scale = screen.scale;
+ // Sizing is very rough... more thought required in a real implementation
+ CGFloat imageSize = MAX(screen.bounds.size.width, screen.bounds.size.height) * 1.5;
+ CGSize imageTargetSize = CGSizeMake(imageSize * scale, imageSize * scale);
+ CGSize thumbTargetSize = CGSizeMake(imageSize / 4.0 * scale, imageSize / 4.0 * scale);
+ */
 // point --> pixel
 static inline CGSize thumbTargetSize(NSUInteger columns) {
     return CGSizeMake(

@@ -6,7 +6,6 @@
 //  Copyright © 2015年 曾维俊. All rights reserved.
 //
 
-#define WJPhotoGridCellSeletedButtonDidChage @"WJPhotoGridCellSeletedButtonDidChage"
 
 #import <UIKit/UIKit.h>
 @class WJPhotoAsset, WJPhotoGridController;
@@ -19,6 +18,6 @@
 
 - (void)selectionButtonPressed; // 点击选中按钮
 
-- (void)displayImage;
+- (void)displayImage:(UIImage *)image;
 
 @end

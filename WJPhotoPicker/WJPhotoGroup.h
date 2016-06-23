@@ -8,21 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "WJPhotoCommon.h"
-#import "WJPhoto.h"
 
 /**
  一组资源的数据模型
  */
-@interface WJPhotoGroup : WJPhoto
+@interface WJPhotoGroup : NSObject
+
+@property (nonatomic, copy) NSString *caption;
 @property (assign, nonatomic) NSInteger count;
 
-@property (strong, nonatomic) ALAssetsGroup *assetsGroup;
-@property (strong, nonatomic) PHAssetCollection *assetCollection;
+#if iOS8
+@property (strong, nonatomic) PHAssetCollection *assets;
+#else
+@property (strong, nonatomic) ALAssetsGroup *assets;
+#endif
 
-+ (instancetype)photoGroupWithAssetsGroup:(ALAssetsGroup *)assetsGroup;
-+ (instancetype)photoGroupAssetCollection:(PHAssetCollection *)assetCollection;
-
-- (instancetype)initWithAssetsGroup:(ALAssetsGroup *)assetsGroup;
-- (instancetype)initWithAssetCollection:(PHAssetCollection *)assetCollection;
 
 @end

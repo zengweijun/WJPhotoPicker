@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class WJPhotoGroup;
 @interface WJPhotoGroupCell : UITableViewCell
 
-@property (strong, nonatomic) WJPhotoGroup *group;
+@property (weak, nonatomic) UIImageView *groupImageView;
+@property (weak, nonatomic) UILabel *groupNameLabel;
+@property (weak, nonatomic) UILabel *groupPicCountLabel;
 
-- (void)displayImage;
 
 @end

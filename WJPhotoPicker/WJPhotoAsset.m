@@ -10,21 +10,20 @@
 
 @implementation WJPhotoAsset
 
-- (instancetype)initWithAsset:(PHAsset *)asset targetSize:(CGSize)targetSize {
-    if (self = [super initWithAsset:asset targetSize:targetSize]) {
-        // 预加载image
-    }
-    return self;
+- (BOOL)isVideo {
+#if iOS8
+    return _asset.mediaType == PHAssetMediaTypeVideo;
+#else
+    return [[_asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypeVideo];
+#endif
 }
 
-- (void)setAAsset:(ALAsset *)aAsset {
-    _aAsset = aAsset;
-    _pAsset = nil;
-}
-
-- (void)setPAsset:(PHAsset *)pAsset {
-    _pAsset = pAsset;
-    _aAsset = nil;
+- (NSTimeInterval)videoDuration {
+#if iOS8
+    return _asset.duration;
+#else
+    return [[_asset valueForProperty:ALAssetPropertyDuration] floatValue];
+#endif
 }
 
 @end

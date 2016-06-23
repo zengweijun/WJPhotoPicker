@@ -15,9 +15,6 @@
 @property (assign, nonatomic) WJPhotoMediaType mediaType;
 @property (assign, nonatomic) NSInteger maxCount;
 
-// The 'seletedImages' contain UIImages that's 'original image' objects
-@property (copy, nonatomic) void(^doneCallback)(NSArray<UIImage *> *seletedImages);
-
 // The 'seletedPhotos' contain WJPhotoAssets
 // Note: if the version is iOS8.0+, use PHAssets Otherwise ALAssets
 /**
@@ -32,5 +29,41 @@
 - (UIImage *)synchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb;
 - (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb completeCb:(void(^)(UIImage *image))completeCb;
 - (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset completeCb:(void(^)(UIImage *originalImage, UIImage *thumbImage))completeCb;
+
+- (void)getVideoURLFromAsset:(WJPhotoAsset *)asset completeCb:(void (^)(NSURL *videURL))completeCb;
+
+/**
+ Export a video file to file path, adaptive iOS7 and iOS8 automatically.
+ The presetName Default is `AVAssetExportPresetHighestQuality` type
+ eg.
+ ALAsset:
+    NSString *doctumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+ 
+    NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
+    NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
+    [self exportVideoFileFromALAsset:asset filePath:resultPath completeCb:^(NSString *errStr) {
+        if (!errStr) {
+            NSLog(@"处理完成:resultPath = %@",resultPath);
+        }
+    }];
+ 
+ PHAsset:
+    NSString *doctumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+ 
+    NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
+    NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
+    [self exportVideoFileFromPHAsset:asset filePath:resultPath completeCb:^(NSString *errStr) {
+        if (!errStr) {
+            NSLog(@"处理完成:resultPath = %@",resultPath);
+        }
+    }];
+ */
+- (void)exportVideoFileFromAsset:(WJPhotoAsset *)asset filePath:(NSString *)filePath completeCb:(void (^)(NSString *errStr))completeCb;
+- (void)exportVideoFileFromAsset:(WJPhotoAsset *)asset filePath:(NSString *)filePath presetName:(NSString *)presetName completeCb:(void (^)(NSString *errStr))completeCb;
+
 
 @end

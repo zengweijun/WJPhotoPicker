@@ -14,13 +14,15 @@
 #import "WJPhotoGridController.h"
 #import <objc/runtime.h>
 
-#define VIDEO_INDICATOR_PADDING 10
+#define VIDEO_INDICATOR_PADDING 4
 
 @interface WJPhotoGridCell() {
     UIImageView *_imageView;
     UIImageView *_videoIndicator;
     UIImageView *_loadingError;
     WJCircularProgressView *_loadingIndicator;
+    
+    UILabel *_durationLabel;
 }
 
 @end
@@ -56,6 +58,13 @@
     UIViewAutoresizingFlexibleWidth;
     [self addSubview:_imageView];
     
+    // Duration Label
+    _durationLabel = [[UILabel alloc] init];
+    _durationLabel.backgroundColor = [UIColor clearColor];
+    _durationLabel.font = [UIFont systemFontOfSize:12];
+    _durationLabel.textColor = [UIColor whiteColor];
+    _durationLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_durationLabel];
     
     // Video Image
     UIImage *videoIndicatorImage = [UIImage imageForResourcePath:@"VideoOverlay" ofType:@"png"];
@@ -84,16 +93,6 @@
     _loadingIndicator.thicknessRatio = 0.1;
     _loadingIndicator.roundedCorners = NO;
     [self addSubview:_loadingIndicator];
-    
-    // Listen for photo loading notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setProgressFromNotification:)
-                                                 name:WJPHOTO_LOADING_PROGRESS_NOTIFICATION
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleMWPhotoLoadingDidEndNotification:)
-                                                 name:WJPHOTO_LOADING_DID_END_NOTIFICATION
-                                               object:nil];
 }
 
 - (void)dealloc {
@@ -109,6 +108,7 @@
                                          _loadingIndicator.frame.size.height);
     _selectedButton.frame = CGRectMake(self.bounds.size.width - _selectedButton.frame.size.width - 0,
                                        0, _selectedButton.frame.size.width, _selectedButton.frame.size.height);
+    _durationLabel.frame = CGRectMake(4, CGRectGetMinY(_videoIndicator.frame), self.bounds.size.width - 4, CGRectGetHeight(_videoIndicator.frame));
 }
 
 #pragma mark - Cell reuse
@@ -132,25 +132,43 @@
     } else {
         _videoIndicator.hidden = YES;
     }
-    if (_photoAsset) {
-        if ([_photoAsset underlyingImage]) {
-            [self hideLoadingIndictor];
-        } else {
-            [self showLoadingIndictor];
-        }
-    } else {
-        [self showImageFailure];
+    
+    _selectedButton.hidden = !_videoIndicator.isHidden;
+    _durationLabel.hidden = _videoIndicator.isHidden;
+    
+    if (photoAsset.isVideo) {
+        _durationLabel.text = [self timeFormatted:photoAsset.videoDuration];
     }
+    
+//    if (_photoAsset) {
+//        if ([_photoAsset underlyingImage]) {
+//            [self hideLoadingIndictor];
+//        } else {
+//            [self showLoadingIndictor];
+//        }
+//    } else {
+//        [self showImageFailure];
+//    }
 }
 
-- (void)displayImage {
-    _imageView.image = [_photoAsset underlyingImage];
+- (NSString *)timeFormatted:(int)totalSeconds {
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    int hours = totalSeconds / 3600;
+    if (hours > 0) return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
+    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+}
+
+- (void)displayImage:(UIImage *)image {
+    _imageView.image = image;
+    [self hideLoadingIndictor];
     [self hideImageFailure];
 }
 
 - (void)setSelectionMode:(BOOL)selectionMode {
     _selectionMode = selectionMode;
     _selectedButton.hidden = !selectionMode;
+    _selectedButton.hidden = !_videoIndicator.isHidden;
 }
 
 #pragma mark - Indictors
@@ -165,19 +183,19 @@
 
 - (void)showImageFailure {
     // Only show if image is not empty
-    if (![_photoAsset respondsToSelector:@selector(emptyImage)] || !_photoAsset.emptyImage) {
-        if (!_loadingError) {
-            _loadingError = [[UIImageView alloc] init];
-            _loadingError.image = [UIImage imageForResourcePath:@"ImageError" ofType:@"png"];
-            _loadingError.userInteractionEnabled = NO;
-            [_loadingError sizeToFit];
-            [self addSubview:_loadingError];
-        }
-        _loadingError.frame = CGRectMake(floorf((self.bounds.size.width - _loadingError.frame.size.width) / 2.),
-                                         floorf((self.bounds.size.height - _loadingError.frame.size.height) / 2.),
-                                         _loadingError.frame.size.width,
-                                         _loadingError.frame.size.width);
-    }
+//    if (![_photoAsset respondsToSelector:@selector(emptyImage)] || !_photoAsset.emptyImage) {
+//        if (!_loadingError) {
+//            _loadingError = [[UIImageView alloc] init];
+//            _loadingError.image = [UIImage imageForResourcePath:@"ImageError" ofType:@"png"];
+//            _loadingError.userInteractionEnabled = NO;
+//            [_loadingError sizeToFit];
+//            [self addSubview:_loadingError];
+//        }
+//        _loadingError.frame = CGRectMake(floorf((self.bounds.size.width - _loadingError.frame.size.width) / 2.),
+//                                         floorf((self.bounds.size.height - _loadingError.frame.size.height) / 2.),
+//                                         _loadingError.frame.size.width,
+//                                         _loadingError.frame.size.width);
+//    }
     [self hideLoadingIndictor];
     _imageView.image = nil;
 }
@@ -205,50 +223,33 @@
     [super touchesCancelled:touches withEvent:event];
 }
 
-
 #pragma mark - Notification
-- (void)setProgressFromNotification:(NSNotification *)notification {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *dict = [notification object];
-        id <WJPhoto> photo = [dict objectForKey:@"photo"];
-        if (photo == _photoAsset) {
-            float progress = [[dict objectForKey:@"progress"] floatValue];
-            _loadingIndicator.progress = MAX(MIN(1, progress), 0);
-        }
-    });
-}
-
-- (void)handleMWPhotoLoadingDidEndNotification:(NSNotification *)notification {
-    id <WJPhoto> photo = [notification object];
-    if (photo == _photoAsset) {
-        if ([photo underlyingImage]) {
-            [self displayImage];
-        } else {
-            [self showImageFailure];
-        }
-        [self hideLoadingIndictor];
-    }
-}
+//- (void)setProgressFromNotification:(NSNotification *)notification {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSDictionary *dict = [notification object];
+//        id <WJPhoto> photo = [dict objectForKey:@"photo"];
+//        if (photo == _photoAsset) {
+//            float progress = [[dict objectForKey:@"progress"] floatValue];
+//            _loadingIndicator.progress = MAX(MIN(1, progress), 0);
+//        }
+//    });
+//}
+//
+//- (void)handleMWPhotoLoadingDidEndNotification:(NSNotification *)notification {
+//    id <WJPhoto> photo = [notification object];
+//    if (photo == _photoAsset) {
+//        if ([photo underlyingImage]) {
+//            [self displayImage:[photo underlyingImage]];
+//        } else {
+//            [self showImageFailure];
+//        }
+//        [self hideLoadingIndictor];
+//    }
+//}
 
 #pragma mark - Action
 - (void)selectionButtonPressed {
-    if (!_selectedButton.isSelected && _gridController.seletedAssets.count >= _gridController.maxCount) {
-        NSString *message = [NSString stringWithFormat:@"你最多只能选择%zd张照片", _gridController.maxCount];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-    
-    _photoAsset.selected = !_photoAsset.selected;
-    _selectedButton.selected = _photoAsset.selected;
-    
-    if (_selectedButton.selected) {
-        if (![_gridController.seletedAssets containsObject:_photoAsset]) [_gridController.seletedAssets addObject:_photoAsset];
-    } else {
-        if ([_gridController.seletedAssets containsObject:_photoAsset]) [_gridController.seletedAssets removeObject:_photoAsset];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoGridCellSeletedButtonDidChage object:nil];
+    [self.gridController selectionButtonPressed:_selectedButton photoAsset:_photoAsset];
 }
 
 @end

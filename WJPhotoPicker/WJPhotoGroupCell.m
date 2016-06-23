@@ -7,35 +7,11 @@
 //
 
 #import "WJPhotoGroupCell.h"
-#import "WJPhotoGroup.h"
 
 @interface WJPhotoGroupCell()
-@property (weak, nonatomic) UIImageView *groupImageView;
-@property (weak, nonatomic) UILabel *groupNameLabel;
-@property (weak, nonatomic) UILabel *groupPicCountLabel;
-
 @end
 
 @implementation WJPhotoGroupCell
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self commitInit];
-    }
-    return self;
-}
-
-- (void)commitInit {
-    self.clipsToBounds = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleMWPhotoLoadingDidEndNotification:)
-                                                 name:WJPHOTO_LOADING_DID_END_NOTIFICATION
-                                               object:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (UIImageView *)groupImageView{
     if (!_groupImageView) {
@@ -68,36 +44,7 @@
     return _groupPicCountLabel;
 }
 
-- (void)setGroup:(WJPhotoGroup *)group{
-    _group = group;
-    
-    self.groupNameLabel.text = group.caption;
-    self.groupPicCountLabel.text = [NSString stringWithFormat:@"(%ld)",(long)group.count];
-}
 
-- (void)displayImage {
-    self.groupImageView.image = [_group underlyingImage];
-}
-
-- (void)prepareForReuse {
-    [super prepareForReuse];
-}
-
-#pragma mark - Notifications
-
-- (void)handleMWPhotoLoadingDidEndNotification:(NSNotification *)notification {
-    id<WJPhoto> group = [notification object];
-    if (group == _group) {
-        if ([group underlyingImage]) {
-            // Successful load
-            [self displayImage];
-        } else {
-            // Failed to load
-            // code here show image load failure status
-        }
-        // code here hide loading indicator
-    }
-}
 
 
 @end

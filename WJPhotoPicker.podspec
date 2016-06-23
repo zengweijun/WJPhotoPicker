@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "WJPhotoPicker"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "A simple and easy to use photo picker."
 
   s.author       = { "zwj" => "niuszeng@sina.com" }
@@ -13,6 +13,5 @@ s.source_files  = "WJPhotoPicker", "WJPhotoPicker/*.{h,m}"
 s.resources = "WJPhotoPicker/Images/*.png"
 s.framework  = "UIKit"
 s.requires_arc = true
-s.dependency 'SDWebImage'
 
 end

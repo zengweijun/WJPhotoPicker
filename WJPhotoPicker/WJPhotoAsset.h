@@ -7,17 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJPhoto.h"
+#import "WJPhotoCommon.h"
+
 /**
  一个资源数据模型
  */
-@interface WJPhotoAsset : WJPhoto
-@property (strong, nonatomic) ALAsset *aAsset;
-@property (strong, nonatomic) PHAsset *pAsset;
+@interface WJPhotoAsset : NSObject
+
+#if iOS8
+@property (strong, nonatomic) PHAsset *asset;
+#else
+@property (strong, nonatomic) ALAsset *asset;
+#endif
 
 @property (assign, nonatomic) BOOL selected;
+@property (nonatomic, assign, getter=isVideo) BOOL video;
 
 
+@property (nonatomic, assign, readonly) NSTimeInterval videoDuration;
 
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
 //@property (strong, nonatomic) PHAsset *asset;
