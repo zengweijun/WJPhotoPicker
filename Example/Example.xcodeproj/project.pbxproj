@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		386095181D1A2C7100DD4DD3 /* WJPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */; };
+		386095181D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 386095171D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.m */; };
 		3860951F1D1A3C8000DD4DD3 /* barbuttonicon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951C1D1A3C8000DD4DD3 /* barbuttonicon_back.png */; };
 		386095201D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951D1D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png */; };
 		386095211D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */; };
@@ -28,7 +28,7 @@
 		38ED05AA1CE56631000DFA96 /* WJPhotoGridController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED059D1CE56631000DFA96 /* WJPhotoGridController.m */; };
 		38ED05AB1CE56631000DFA96 /* WJPhotoGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED059F1CE56631000DFA96 /* WJPhotoGroup.m */; };
 		38ED05AC1CE56631000DFA96 /* WJPhotoGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED05A11CE56631000DFA96 /* WJPhotoGroupCell.m */; };
-		38ED05AD1CE56631000DFA96 /* WJPhotoGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED05A31CE56631000DFA96 /* WJPhotoGroupController.m */; };
+		38ED05AD1CE56631000DFA96 /* WJPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED05A31CE56631000DFA96 /* WJPhotoPickerController.m */; };
 		38ED06591CE56A57000DFA96 /* WJCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED06581CE56A57000DFA96 /* WJCircularProgressView.m */; };
 		38ED06841CE59425000DFA96 /* ImageError.png in Resources */ = {isa = PBXBuildFile; fileRef = 38ED065F1CE59425000DFA96 /* ImageError.png */; };
 		38ED06851CE59425000DFA96 /* ImageError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38ED06601CE59425000DFA96 /* ImageError@2x.png */; };
@@ -84,8 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		386095161D1A2C7100DD4DD3 /* WJPhotoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoToolbar.h; sourceTree = "<group>"; };
-		386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoToolbar.m; sourceTree = "<group>"; };
+		386095161D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoDisplayToolbar.h; sourceTree = "<group>"; };
+		386095171D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoDisplayToolbar.m; sourceTree = "<group>"; };
 		3860951C1D1A3C8000DD4DD3 /* barbuttonicon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbuttonicon_back.png; sourceTree = "<group>"; };
 		3860951D1D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barbuttonicon_back@2x.png"; sourceTree = "<group>"; };
 		3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barbuttonicon_back@3x.png"; sourceTree = "<group>"; };
@@ -124,8 +124,8 @@
 		38ED059F1CE56631000DFA96 /* WJPhotoGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoGroup.m; sourceTree = "<group>"; };
 		38ED05A01CE56631000DFA96 /* WJPhotoGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoGroupCell.h; sourceTree = "<group>"; };
 		38ED05A11CE56631000DFA96 /* WJPhotoGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoGroupCell.m; sourceTree = "<group>"; };
-		38ED05A21CE56631000DFA96 /* WJPhotoGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoGroupController.h; sourceTree = "<group>"; };
-		38ED05A31CE56631000DFA96 /* WJPhotoGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoGroupController.m; sourceTree = "<group>"; };
+		38ED05A21CE56631000DFA96 /* WJPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoPickerController.h; sourceTree = "<group>"; };
+		38ED05A31CE56631000DFA96 /* WJPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoPickerController.m; sourceTree = "<group>"; };
 		38ED06571CE56A57000DFA96 /* WJCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJCircularProgressView.h; sourceTree = "<group>"; };
 		38ED06581CE56A57000DFA96 /* WJCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJCircularProgressView.m; sourceTree = "<group>"; };
 		38ED065F1CE59425000DFA96 /* ImageError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ImageError.png; sourceTree = "<group>"; };
@@ -266,22 +266,22 @@
 				38ED05991CE56631000DFA96 /* WJPhotoCommon.h */,
 				38ED059E1CE56631000DFA96 /* WJPhotoGroup.h */,
 				38ED059F1CE56631000DFA96 /* WJPhotoGroup.m */,
-				386095161D1A2C7100DD4DD3 /* WJPhotoToolbar.h */,
-				386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */,
 				38C0E78D1D19466600F2BE8F /* WJPhotoDisplayCell.h */,
 				38C0E78E1D19466600F2BE8F /* WJPhotoDisplayCell.m */,
 				38ED059A1CE56631000DFA96 /* WJPhotoGridCell.h */,
 				38ED059B1CE56631000DFA96 /* WJPhotoGridCell.m */,
 				38ED05A01CE56631000DFA96 /* WJPhotoGroupCell.h */,
 				38ED05A11CE56631000DFA96 /* WJPhotoGroupCell.m */,
+				386095161D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.h */,
+				386095171D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.m */,
 				386095221D1A638500DD4DD3 /* WJVideoDisplayController.h */,
 				386095231D1A638500DD4DD3 /* WJVideoDisplayController.m */,
 				38C0E78A1D19439200F2BE8F /* WJPhotoDisplayController.h */,
 				38C0E78B1D19439200F2BE8F /* WJPhotoDisplayController.m */,
 				38ED059C1CE56631000DFA96 /* WJPhotoGridController.h */,
 				38ED059D1CE56631000DFA96 /* WJPhotoGridController.m */,
-				38ED05A21CE56631000DFA96 /* WJPhotoGroupController.h */,
-				38ED05A31CE56631000DFA96 /* WJPhotoGroupController.m */,
+				38ED05A21CE56631000DFA96 /* WJPhotoPickerController.h */,
+				38ED05A31CE56631000DFA96 /* WJPhotoPickerController.m */,
 			);
 			name = WJPhotoPicker;
 			path = ../WJPhotoPicker;
@@ -508,8 +508,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				38ED05661CE565C9000DFA96 /* ViewController.m in Sources */,
-				38ED05AD1CE56631000DFA96 /* WJPhotoGroupController.m in Sources */,
-				386095181D1A2C7100DD4DD3 /* WJPhotoToolbar.m in Sources */,
+				38ED05AD1CE56631000DFA96 /* WJPhotoPickerController.m in Sources */,
+				386095181D1A2C7100DD4DD3 /* WJPhotoDisplayToolbar.m in Sources */,
 				38ED05A91CE56631000DFA96 /* WJPhotoGridCell.m in Sources */,
 				386095241D1A638500DD4DD3 /* WJVideoDisplayController.m in Sources */,
 				38ED05A71CE56631000DFA96 /* WJPhotoAsset.m in Sources */,

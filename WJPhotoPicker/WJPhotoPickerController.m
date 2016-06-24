@@ -1,12 +1,12 @@
 //
-//  WJPhotoGroupController.m
+//  WJPhotoPickerController.m
 //  WJPhotoPickerController
 //
 //  Created by 曾维俊 on 15/12/18.
 //  Copyright © 2015年 曾维俊. All rights reserved.
 //
 
-#import "WJPhotoGroupController.h"
+#import "WJPhotoPickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 #import "WJPhotoGridController.h"
@@ -14,7 +14,7 @@
 #import "WJPhotoGroupCell.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface WJPhotoGroupController ()<UITableViewDataSource,UITableViewDelegate> {
+@interface WJPhotoPickerController ()<UITableViewDataSource,UITableViewDelegate> {
     BOOL unInit;
 }
 
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation WJPhotoGroupController
+@implementation WJPhotoPickerController
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -37,6 +37,13 @@
         _selectionMode = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneBtnCallback) name:WJPhotoPickerDoneButtonClicked object:nil];
         [self loadAssets];
+    }
+    return self;
+}
+
+- (instancetype)initWithCompletedCallback:(CompletedCallback)completedCallback {
+    if (self = [self init]) {
+        self.completedCallback = completedCallback;
     }
     return self;
 }
@@ -77,7 +84,7 @@
 
 - (void)doneBtnCallback {
     [self dismissViewControllerAnimated:YES completion:nil];
-    if (self.completedCallback) self.completedCallback(self.gridVc.seletedAssets);
+    if (self.completedCallback) self.completedCallback(self, self.gridVc.seletedAssets);
 }
 
 #pragma mark - Load data

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "WJPhotoCommon.h"
-#import "WJPhotoGroupController.h"
+#import "WJPhotoPickerController.h"
 
 @class WJPhotoGroup;
 @interface WJPhotoGridController : UIViewController
-@property (nonatomic, weak) WJPhotoGroupController *groupController;
+@property (nonatomic, weak) WJPhotoPickerController *groupController;
 
 @property (strong, nonatomic) WJPhotoGroup *group;
 @property (assign, nonatomic) NSInteger maxCount;

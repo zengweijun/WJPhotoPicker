@@ -7,70 +7,48 @@
 * [System 【iOS7+】]
 
 ## Installation
-* cocoapods导入：`pod 'WJPhotoPicker'` 
-* 导入主头文件：`#import "WJPhotoGroupController.h"`
+* Podfile add：`pod 'WJPhotoPicker'` 
+* 导入主头文件：`#import "WJPhotoPickerController.h"`
 
 ## Usage
 Download zip and see demo for details.
 
-eg.
-In view controller
+#### Example (synchronous and asynchronous get image or videos)
+```objective-c
 
-Initializec
-    if (!_photoGroup) {
-        _photoGroup = [[WJPhotoGroupController alloc] init];
-        _photoGroup.mediaType = WJPhotoMediaTypeAll;
+    // Synchronous get image
+    UIImage *originalImage = [picker synchronousGetImage:photoAsset thumb:NO];
+    UIImage *thumbImage = [picker synchronousGetImage:photoAsset thumb:YES];
+    NSLog(@"originalImage:%@, thumbImage:%@", originalImage, thumbImage);
+
+    // Asynchronous get image
+    [picker asynchronousGetImage:photoAsset thumb:NO completeCb:^(UIImage *image) {
+        NSLog(@"originalImage:%@", image);
+    }];
+    [picker asynchronousGetImage:photoAsset thumb:YES completeCb:^(UIImage *image) {
+        NSLog(@"thumbImage:%@", image);
+    }];
+    [picker asynchronousGetImage:photoAsset completeCb:^(UIImage *originalImage, UIImage *thumbImage) {
+        NSLog(@"originalImage:%@,thumbImage:%@", originalImage, thumbImage);
+    }];
+
+
+    // Asynchronous get image
+    if (photoAsset.isVideo) {
+        NSString *doctumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+        [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+        NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
+        NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
+
+        NSLog(@"----start----exportVideoFile");
+        [picker exportVideoFileFromAsset:photoAsset filePath:resultPath completeCb:^(NSString *errStr) {
+            NSLog(@"resultPath:%@", resultPath);
+            NSLog(@"----end----exportVideoFile");
+        }];
     }
 
-Callback:
-    __weak __typeof(&*self) ws = self;
-    NSInteger maxCount = 9;
-    self.photoGroup.maxCount = maxCount - self.images.count;
-    self.photoGroup.completedCallback = ^(NSArray<WJPhotoAsset *> *seletedAssets) {
-        // 这里返回当前选择的照片的Assets
-        NSLog(@"seletedAssetsCount:%zd", seletedAssets.count);
-        NSLog(@"seletedAssets:%@", seletedAssets);
-    
-        for (WJPhotoAsset *photoAsset in seletedAssets) {
-            // 同步获取照片
-            UIImage *originalImage = [ws.photoGroup synchronousGetImage:photoAsset thumb:NO];
-            UIImage *thumbImage = [ws.photoGroup synchronousGetImage:photoAsset thumb:YES];
-            NSLog(@"originalImage:%@, thumbImage:%@", originalImage, thumbImage);
-
-            // 异步获取照片
-            [ws.photoGroup asynchronousGetImage:photoAsset thumb:NO completeCb:^(UIImage *image) {
-                NSLog(@"单独获取:originalImage:%@", image);
-            }];
-
-            [ws.photoGroup asynchronousGetImage:photoAsset thumb:YES completeCb:^(UIImage *image) {
-                NSLog(@"单独获取:thumbImage:%@", image);
-            }];
-
-            [ws.photoGroup asynchronousGetImage:photoAsset completeCb:^(UIImage *originalImage, UIImage *thumbImage) {
-                NSLog(@"一起获取:originalImage:%@,thumbImage:%@", originalImage, thumbImage);
-            }];
-
-            if (photoAsset.isVideo) {
-                NSLog(@"\n\n\n:提取视频");
-                NSString *doctumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-                NSDateFormatter *formater = [[NSDateFormatter alloc] init];
-                [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
-                NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
-                NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
-
-                NSLog(@"开始压缩");
-                [ws.photoGroup exportVideoFileFromAsset:photoAsset filePath:resultPath completeCb:^(NSString *errStr) {
-                    NSLog(@"resultPath:%@", resultPath);
-                    NSLog(@"压缩完成");
-                }];
-            }
-        }
-    };
-
-Show:
-    UINavigationController *photoGroupNav = [[UINavigationController alloc] initWithRootViewController:self.photoGroup];
-    [self presentViewController:photoGroupNav animated:YES completion:nil];
-
+```
 
 ## License
 WJPhotoBrowser is released under the MIT license. See LICENSE for details.

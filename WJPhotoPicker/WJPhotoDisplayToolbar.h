@@ -1,5 +1,5 @@
 //
-//  WJPhotoToolbar.h
+//  WJPhotoDisplayToolbar.h
 //  Example
 //
 //  Created by 森巴iOS开发部 on 16/6/22.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WJPhotoToolbar : UIView
+@interface WJPhotoDisplayToolbar : UIView
 - (instancetype)initWithSeletedAssets:(NSMutableArray *)seletedAssets callback:(void(^)())callback;
 - (void)update;
 

@@ -1,5 +1,5 @@
 //
-//  WJPhotoGroupController.h
+//  WJPhotoPickerController.h
 //  WJPhotoPickerController
 //
 //  Created by 曾维俊 on 15/12/18.
@@ -10,7 +10,10 @@
 #import "WJPhotoCommon.h"
 #import "WJPhotoAsset.h"
 
-@interface WJPhotoGroupController : UIViewController
+@class WJPhotoPickerController;
+typedef void(^CompletedCallback)(WJPhotoPickerController *picker, NSArray<WJPhotoAsset *> *seletedAssets);
+
+@interface WJPhotoPickerController : UIViewController
 @property (assign, nonatomic) BOOL selectionMode;
 @property (assign, nonatomic) WJPhotoMediaType mediaType;
 @property (assign, nonatomic) NSInteger maxCount;
@@ -23,7 +26,10 @@
  - (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb completeCb:(void(^)(UIImage *image))completeCb;
  - (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset completeCb:(void(^)(UIImage *originalImage, UIImage *thumbImage))completeCb;
  */
-@property (copy, nonatomic) void(^completedCallback)(NSArray<WJPhotoAsset *> *seletedAssets);
+@property (copy, nonatomic) CompletedCallback completedCallback;
+
+// Initialize
+- (instancetype)initWithCompletedCallback:(CompletedCallback)completedCallback;
 
 // Fetch image methods synchronous or asynchronous
 - (UIImage *)synchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb;

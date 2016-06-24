@@ -10,7 +10,7 @@
 #import "WJPhotoGridController.h"
 #import "WJPhotoDisplayCell.h"
 #import "WJPhotoCommon.h"
-#import "WJPhotoToolbar.h"
+#import "WJPhotoDisplayToolbar.h"
 
 @interface WJPhotoDisplayController ()<
 UICollectionViewDataSource,
@@ -20,7 +20,7 @@ UICollectionViewDelegateFlowLayout
     BOOL _barHidden;
 }
 @property (nonatomic, weak) UICollectionView *collectionView;
-@property (nonatomic, weak) WJPhotoToolbar *toolbar;
+@property (nonatomic, weak) WJPhotoDisplayToolbar *toolbar;
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIButton *seletedBtn;
 
@@ -73,7 +73,7 @@ UICollectionViewDelegateFlowLayout
 }
 
 - (void)setupToolbar{
-    WJPhotoToolbar *toolbar = [[WJPhotoToolbar alloc] initWithSeletedAssets:self.gridViewController.seletedAssets callback:NULL];
+    WJPhotoDisplayToolbar *toolbar = [[WJPhotoDisplayToolbar alloc] initWithSeletedAssets:self.gridViewController.seletedAssets callback:NULL];
     [self.view addSubview:toolbar];
     toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = NSDictionaryOfVariableBindings(toolbar);

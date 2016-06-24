@@ -1,26 +1,25 @@
 //
-//  WJPhotoToolbar.m
+//  WJPhotoDisplayToolbar.m
 //  Example
 //
 //  Created by 森巴iOS开发部 on 16/6/22.
 //  Copyright © 2016年 曾维俊. All rights reserved.
 //
 
-#import "WJPhotoToolbar.h"
+#import "WJPhotoDisplayToolbar.h"
 #import "WJPhotoCommon.h"
 #import "WJPhotoGridController.h"
 
-@interface WJPhotoToolbar()
+@interface WJPhotoDisplayToolbar()
 @property (nonatomic, weak) UIView *lineView;
 @property (nonatomic, weak) UIButton *doneBtn;
 @property (nonatomic, copy) void(^callback)();
 
 @property (nonatomic, strong) NSMutableArray *seletedAssets;
 
-
 @end
 
-@implementation WJPhotoToolbar
+@implementation WJPhotoDisplayToolbar
 - (instancetype)initWithSeletedAssets:(NSMutableArray *)seletedAssets callback:(void(^)())callback{
     if (self = [super init]) {
         self.callback = callback;

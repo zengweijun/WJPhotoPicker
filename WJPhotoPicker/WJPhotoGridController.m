@@ -11,7 +11,7 @@
 #import "WJPhotoAsset.h"
 #import "WJPhotoGridCell.h"
 #import "WJPhotoDisplayController.h"
-#import "WJPhotoToolbar.h"
+#import "WJPhotoDisplayToolbar.h"
 #import "WJVideoDisplayController.h"
 
 @interface WJPhotoGridController ()<
@@ -20,7 +20,7 @@ UICollectionViewDelegateFlowLayout
 >
 
 @property (weak, nonatomic) UICollectionView *collectionView;
-@property (weak, nonatomic) WJPhotoToolbar   *toolBar;
+@property (weak, nonatomic) WJPhotoDisplayToolbar   *toolBar;
 
 @property (strong, nonatomic) NSMutableArray *thumbs;
 
@@ -79,7 +79,7 @@ UICollectionViewDelegateFlowLayout
 
 #pragma mark -初始化底部ToolBar
 - (void) setupToolBar{
-    WJPhotoToolbar *toolBar = [[WJPhotoToolbar alloc] initWithSeletedAssets:self.seletedAssets callback:NULL];
+    WJPhotoDisplayToolbar *toolBar = [[WJPhotoDisplayToolbar alloc] initWithSeletedAssets:self.seletedAssets callback:NULL];
     [self.view addSubview:toolBar];
     toolBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];
     toolBar.translatesAutoresizingMaskIntoConstraints = NO;
