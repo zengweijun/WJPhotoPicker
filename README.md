@@ -1,6 +1,6 @@
 # WJPhotoPicker
-* An easy way to use Photo Picker, You maybe export a video file to file path from a photo album, ti's adaptive iOS7 and iOS8 automatically(ALAsset and PHAsset).
-* 一款用法简单的可选择照片的相册,自动适配iOS7和iOS7,支持从相册中导出视屏文件
+* An easy way to use Photo Picker, You maybe export a video file to file path from a photo album, ti's adaptive iOS7 and iOS8 automatically(ALAsset and PHAsset), compatible with iPhone and iPad, landscape adaptation.
+* 一款用法简单的可选择照片的相册,自动适配iOS7和iOS7,支持从相册中导出视频文件, 同事兼容iPhone、iPad，横屏适配.
 
 ## Contents
 * Getting Started
