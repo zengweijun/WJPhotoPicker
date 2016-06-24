@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		386095181D1A2C7100DD4DD3 /* WJPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */; };
-		3860951B1D1A3B1900DD4DD3 /* WJPhotoNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3860951A1D1A3B1900DD4DD3 /* WJPhotoNavBar.m */; };
 		3860951F1D1A3C8000DD4DD3 /* barbuttonicon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951C1D1A3C8000DD4DD3 /* barbuttonicon_back.png */; };
 		386095201D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951D1D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png */; };
 		386095211D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */; };
@@ -87,8 +86,6 @@
 /* Begin PBXFileReference section */
 		386095161D1A2C7100DD4DD3 /* WJPhotoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoToolbar.h; sourceTree = "<group>"; };
 		386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoToolbar.m; sourceTree = "<group>"; };
-		386095191D1A3B1900DD4DD3 /* WJPhotoNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoNavBar.h; sourceTree = "<group>"; };
-		3860951A1D1A3B1900DD4DD3 /* WJPhotoNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoNavBar.m; sourceTree = "<group>"; };
 		3860951C1D1A3C8000DD4DD3 /* barbuttonicon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbuttonicon_back.png; sourceTree = "<group>"; };
 		3860951D1D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barbuttonicon_back@2x.png"; sourceTree = "<group>"; };
 		3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barbuttonicon_back@3x.png"; sourceTree = "<group>"; };
@@ -269,8 +266,6 @@
 				38ED05991CE56631000DFA96 /* WJPhotoCommon.h */,
 				38ED059E1CE56631000DFA96 /* WJPhotoGroup.h */,
 				38ED059F1CE56631000DFA96 /* WJPhotoGroup.m */,
-				386095191D1A3B1900DD4DD3 /* WJPhotoNavBar.h */,
-				3860951A1D1A3B1900DD4DD3 /* WJPhotoNavBar.m */,
 				386095161D1A2C7100DD4DD3 /* WJPhotoToolbar.h */,
 				386095171D1A2C7100DD4DD3 /* WJPhotoToolbar.m */,
 				38C0E78D1D19466600F2BE8F /* WJPhotoDisplayCell.h */,
@@ -513,7 +508,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				38ED05661CE565C9000DFA96 /* ViewController.m in Sources */,
-				3860951B1D1A3B1900DD4DD3 /* WJPhotoNavBar.m in Sources */,
 				38ED05AD1CE56631000DFA96 /* WJPhotoGroupController.m in Sources */,
 				386095181D1A2C7100DD4DD3 /* WJPhotoToolbar.m in Sources */,
 				38ED05A91CE56631000DFA96 /* WJPhotoGridCell.m in Sources */,
