@@ -15,15 +15,14 @@ Download zip and see demo for details.
 
 eg.
 In view controller
-- (WJPhotoGroupController *)photoGroup {
+
+Initializec
     if (!_photoGroup) {
         _photoGroup = [[WJPhotoGroupController alloc] init];
         _photoGroup.mediaType = WJPhotoMediaTypeAll;
     }
-    return _photoGroup;
-}
 
-- (IBAction)openAlbum:(id)sender {
+Callback:
     __weak __typeof(&*self) ws = self;
     NSInteger maxCount = 9;
     self.photoGroup.maxCount = maxCount - self.images.count;
@@ -68,9 +67,9 @@ In view controller
         }
     };
 
+Show:
     UINavigationController *photoGroupNav = [[UINavigationController alloc] initWithRootViewController:self.photoGroup];
     [self presentViewController:photoGroupNav animated:YES completion:nil];
-}
 
 
 ## License
