@@ -9,6 +9,7 @@
 #import "WJVideoDisplayController.h"
 #import "WJPhotoGridController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "MBProgressHUD.h"
 
 @interface WJVideoDisplayController ()
 
@@ -42,6 +43,7 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[moviePlayerView]-0-|" options:0 metrics:nil views:moviePlayerViews]];
     
     UIImageView *tipsImageView = [[UIImageView alloc] init];
+    tipsImageView.contentMode = UIViewContentModeScaleAspectFit;
     [moviePlayerView addSubview:tipsImageView];
     self.tipsImageView = tipsImageView;
     __weak __typeof(&*self) wself = self;
@@ -71,7 +73,7 @@
     
     UIBarButtonItem *completeItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStyleDone target:self action:@selector(completeItemClicked)];
      UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolbar setItems:@[flexible, completeItem]];
+    [toolbar setItems:@[flexible, flexible, completeItem]];
     
     toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *toolbarViews = NSDictionaryOfVariableBindings(toolbar);
@@ -88,6 +90,27 @@
 }
 
 - (void)completeItemClicked {
+    if (self.gridController.groupController.mediaType == WJPhotoMediaTypeVideo) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"视频处理中...";
+        __weak __typeof(&*hud) whud = hud;
+        __weak __typeof(&*self) wself = self;
+        [self.gridController.groupController exportVideoFileFromAsset:self.photoAsset filePath:self.gridController.filePath presetName:self.gridController.presetName?self.gridController.presetName:AVAssetExportPresetHighestQuality completeCb:^(NSString *errStr) {
+            __strong __typeof(&*whud) shud = whud;
+            __strong __typeof(&*wself) sself = wself;
+            [shud hide:YES];
+            
+            if (sself.gridController.groupController.fetchVideoCallback)
+                sself.gridController.groupController.fetchVideoCallback(sself.gridController.groupController, sself.photoAsset, sself.gridController.filePath);
+            
+            [sself completeCallback];
+        }];
+    } else  {
+        [self completeCallback];
+    }
+}
+
+- (void)completeCallback {
     [self.gridController.seletedAssets removeAllObjects];
     if (self.photoAsset) [self.gridController.seletedAssets addObject:self.photoAsset];
     [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoPickerDoneButtonClicked object:nil];

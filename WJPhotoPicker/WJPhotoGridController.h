@@ -22,4 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *seletedAssets;
 - (void)selectionButtonPressed:(UIButton *)seletedButton photoAsset:(WJPhotoAsset *)photoAsset;
 
+@property (nonatomic, copy) NSString *presetName;
+@property (nonatomic, copy) NSString *filePath;
+
 @end

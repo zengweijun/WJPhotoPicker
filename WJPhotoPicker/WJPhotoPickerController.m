@@ -27,6 +27,9 @@
 @property (strong, nonatomic) NSMutableArray  *groups;
 @property (strong, nonatomic) WJPhotoGridController *gridVc;
 
+@property (nonatomic, copy) NSString *presetName;
+@property (nonatomic, copy) NSString *filePath;
+
 @end
 
 @implementation WJPhotoPickerController
@@ -36,15 +39,32 @@
         _mediaType = WJPhotoMediaTypeAll;
         _selectionMode = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneBtnCallback) name:WJPhotoPickerDoneButtonClicked object:nil];
-        [self loadAssets];
     }
     return self;
 }
 
 - (instancetype)initWithCompletedCallback:(CompletedCallback)completedCallback {
     if (self = [self init]) {
-        self.completedCallback = completedCallback;
+        _completedCallback = [completedCallback copy];
+        [self loadAssets];
     }
+    return self;
+}
+
+- (instancetype)initWithFetchVideo:(NSString *)filePath presetName:(NSString *)presetName fetchVideoCallback:(FetchVideoCallback)fetchVideoCallback {
+    if (self = [self init]) {
+        _fetchVideoCallback = [fetchVideoCallback copy];
+        _mediaType = WJPhotoMediaTypeVideo;
+        _presetName = presetName;
+        _filePath = [filePath copy];
+        [self loadAssets];
+    }
+    return self;
+}
+
+- (instancetype)show:(UIViewController *)viewController {
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self];
+    [viewController presentViewController:nav animated:YES completion:nil];
     return self;
 }
 
@@ -287,6 +307,8 @@
     _gridVc.selectionMode = _selectionMode;
     _gridVc.groupController = self;
     _gridVc.mediaType = self.mediaType;
+    _gridVc.presetName = _presetName;
+    _gridVc.filePath = _filePath;
     [self.navigationController pushViewController:_gridVc animated:animation];
 }
 
@@ -337,11 +359,7 @@
 }
 
 - (void)exportVideoFileFromAsset:(WJPhotoAsset *)asset filePath:(NSString *)filePath completeCb:(void (^)(NSString *errStr))completeCb {
-#if iOS8
-    [self exportVideoFileFromPHAsset:asset.asset filePath:filePath completeCb:completeCb];
-#else
-    [self exportVideoFileFromALAsset:asset.asset filePath:filePath completeCb:completeCb];
-#endif
+    [self exportVideoFileFromAsset:asset filePath:filePath presetName:AVAssetExportPresetHighestQuality completeCb:completeCb];
 }
 
 - (void)exportVideoFileFromAsset:(WJPhotoAsset *)asset filePath:(NSString *)filePath presetName:(NSString *)presetName completeCb:(void (^)(NSString *errStr))completeCb {

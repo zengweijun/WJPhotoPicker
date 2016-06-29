@@ -52,7 +52,6 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[doneBtn]-0-|" options:0 metrics:nil views:rightBtnViews]];
         self.doneBtn = doneBtn;
         
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WJPhotoGridCellSeletedButtonDidChage object:nil];
         [self update];
     }

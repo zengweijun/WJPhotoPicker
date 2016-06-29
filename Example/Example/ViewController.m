@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *assets;
 
 - (IBAction)openAlbum:(id)sender;
+- (IBAction)getVideo:(id)sender;
 
 @end
 
@@ -77,6 +78,24 @@
     
     UINavigationController *photoGroupNav = [[UINavigationController alloc] initWithRootViewController:self.photoPicker];
     [self presentViewController:photoGroupNav animated:YES completion:nil];
+}
+
+- (IBAction)getVideo:(id)sender {
+    NSString *doctumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+    NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
+    NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
+    
+    WJPhotoPickerController *picker = [[[WJPhotoPickerController alloc] initWithFetchVideo:resultPath presetName:AVAssetExportPresetMediumQuality fetchVideoCallback:^(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath) {
+        
+        NSLog(@"fetchVideoCallback----filePath----:%@", filePath);
+    }] show:self];
+    
+    picker.completedCallback = ^(WJPhotoPickerController *picker, NSArray<WJPhotoAsset *> *seletedAssets) {
+        NSLog(@"seletedAssetsCount:%zd", seletedAssets.count);
+        NSLog(@"seletedAssets:%@", seletedAssets);
+    };
 }
 
 @end

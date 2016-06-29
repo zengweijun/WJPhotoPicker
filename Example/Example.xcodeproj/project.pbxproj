@@ -12,6 +12,9 @@
 		386095201D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951D1D1A3C8000DD4DD3 /* barbuttonicon_back@2x.png */; };
 		386095211D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */; };
 		386095241D1A638500DD4DD3 /* WJVideoDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 386095231D1A638500DD4DD3 /* WJVideoDisplayController.m */; };
+		388E03141D23808C0070EA1C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 388E03101D23808C0070EA1C /* LICENSE */; };
+		388E03151D23808C0070EA1C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 388E03121D23808C0070EA1C /* MBProgressHUD.m */; };
+		388E03161D23808C0070EA1C /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 388E03131D23808C0070EA1C /* README.mdown */; };
 		38C0E78C1D19439200F2BE8F /* WJPhotoDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C0E78B1D19439200F2BE8F /* WJPhotoDisplayController.m */; };
 		38C0E78F1D19466600F2BE8F /* WJPhotoDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C0E78E1D19466600F2BE8F /* WJPhotoDisplayCell.m */; };
 		38ED05601CE565C9000DFA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38ED055F1CE565C9000DFA96 /* main.m */; };
@@ -91,6 +94,10 @@
 		3860951E1D1A3C8000DD4DD3 /* barbuttonicon_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barbuttonicon_back@3x.png"; sourceTree = "<group>"; };
 		386095221D1A638500DD4DD3 /* WJVideoDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJVideoDisplayController.h; sourceTree = "<group>"; };
 		386095231D1A638500DD4DD3 /* WJVideoDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJVideoDisplayController.m; sourceTree = "<group>"; };
+		388E03101D23808C0070EA1C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		388E03111D23808C0070EA1C /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		388E03121D23808C0070EA1C /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		388E03131D23808C0070EA1C /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		38C0E78A1D19439200F2BE8F /* WJPhotoDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoDisplayController.h; sourceTree = "<group>"; };
 		38C0E78B1D19439200F2BE8F /* WJPhotoDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoDisplayController.m; sourceTree = "<group>"; };
 		38C0E78D1D19466600F2BE8F /* WJPhotoDisplayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoDisplayCell.h; sourceTree = "<group>"; };
@@ -190,6 +197,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		388E030F1D23808C0070EA1C /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				388E03101D23808C0070EA1C /* LICENSE */,
+				388E03111D23808C0070EA1C /* MBProgressHUD.h */,
+				388E03121D23808C0070EA1C /* MBProgressHUD.m */,
+				388E03131D23808C0070EA1C /* README.mdown */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		38ED05521CE565C9000DFA96 = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +232,7 @@
 		38ED055D1CE565C9000DFA96 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				388E030F1D23808C0070EA1C /* MBProgressHUD */,
 				38ED05611CE565C9000DFA96 /* AppDelegate.h */,
 				38ED05621CE565C9000DFA96 /* AppDelegate.m */,
 				38ED05641CE565C9000DFA96 /* ViewController.h */,
@@ -473,6 +492,7 @@
 				38ED068A1CE59425000DFA96 /* ImageSelectedOn.png in Resources */,
 				38ED06931CE59425000DFA96 /* PlayButtonOverlayLarge.png in Resources */,
 				38ED069B1CE59425000DFA96 /* UIBarButtonItemArrowLeft@2x.png in Resources */,
+				388E03141D23808C0070EA1C /* LICENSE in Resources */,
 				38ED069E1CE59425000DFA96 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				38ED06A11CE59425000DFA96 /* UIBarButtonItemGrid@2x.png in Resources */,
 				38ED06891CE59425000DFA96 /* ImageSelectedOff@3x.png in Resources */,
@@ -515,6 +535,7 @@
 				38ED05A71CE56631000DFA96 /* WJPhotoAsset.m in Sources */,
 				38ED05AB1CE56631000DFA96 /* WJPhotoGroup.m in Sources */,
 				38ED05631CE565C9000DFA96 /* AppDelegate.m in Sources */,
+				388E03161D23808C0070EA1C /* README.mdown in Sources */,
 				38ED05601CE565C9000DFA96 /* main.m in Sources */,
 				38ED05A51CE56631000DFA96 /* UIImage+WJPhoto.m in Sources */,
 				38ED06591CE56A57000DFA96 /* WJCircularProgressView.m in Sources */,
@@ -522,6 +543,7 @@
 				38C0E78F1D19466600F2BE8F /* WJPhotoDisplayCell.m in Sources */,
 				38C0E78C1D19439200F2BE8F /* WJPhotoDisplayController.m in Sources */,
 				38ED05AC1CE56631000DFA96 /* WJPhotoGroupCell.m in Sources */,
+				388E03151D23808C0070EA1C /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

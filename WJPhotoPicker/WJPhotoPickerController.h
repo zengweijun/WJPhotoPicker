@@ -12,11 +12,12 @@
 
 @class WJPhotoPickerController;
 typedef void(^CompletedCallback)(WJPhotoPickerController *picker, NSArray<WJPhotoAsset *> *seletedAssets);
+typedef void(^FetchVideoCallback)(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath);
 
 @interface WJPhotoPickerController : UIViewController
-@property (assign, nonatomic) BOOL selectionMode;
 @property (assign, nonatomic) WJPhotoMediaType mediaType;
 @property (assign, nonatomic) NSInteger maxCount;
+@property (assign, nonatomic) BOOL selectionMode;
 
 // The 'seletedPhotos' contain WJPhotoAssets
 // Note: if the version is iOS8.0+, use PHAssets Otherwise ALAssets
@@ -27,9 +28,15 @@ typedef void(^CompletedCallback)(WJPhotoPickerController *picker, NSArray<WJPhot
  - (void)asynchronousGetImage:(WJPhotoAsset *)photoAsset completeCb:(void(^)(UIImage *originalImage, UIImage *thumbImage))completeCb;
  */
 @property (copy, nonatomic) CompletedCallback completedCallback;
+@property (copy, nonatomic) FetchVideoCallback fetchVideoCallback;
 
-// Initialize
+// General initialize
 - (instancetype)initWithCompletedCallback:(CompletedCallback)completedCallback;
+
+// Fetch video
+- (instancetype)initWithFetchVideo:(NSString *)filePath presetName:(NSString *)presetName fetchVideoCallback:(FetchVideoCallback)fetchVideoCallback;
+
+- (instancetype)show:(UIViewController *)viewController;
 
 // Fetch image methods synchronous or asynchronous
 - (UIImage *)synchronousGetImage:(WJPhotoAsset *)photoAsset thumb:(BOOL)thumb;
