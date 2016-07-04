@@ -12,7 +12,7 @@
 
 @class WJPhotoPickerController;
 typedef void(^CompletedCallback)(WJPhotoPickerController *picker, NSArray<WJPhotoAsset *> *seletedAssets);
-typedef void(^FetchVideoCallback)(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath);
+typedef void(^FetchVideoCallback)(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath, NSError *error);
 
 @interface WJPhotoPickerController : UIViewController
 @property (assign, nonatomic) WJPhotoMediaType mediaType;

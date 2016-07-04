@@ -101,7 +101,7 @@
             [shud hide:YES];
             
             if (sself.gridController.groupController.fetchVideoCallback)
-                sself.gridController.groupController.fetchVideoCallback(sself.gridController.groupController, sself.photoAsset, sself.gridController.filePath);
+                sself.gridController.groupController.fetchVideoCallback(sself.gridController.groupController, sself.photoAsset, sself.gridController.filePath, errStr?[NSError errorWithDomain:errStr code:0 userInfo:nil]:nil);
             
             [sself completeCallback];
         }];

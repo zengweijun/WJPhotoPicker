@@ -87,7 +87,7 @@
     NSString *filename = [NSString stringWithFormat:@"output-%@.mp4", [formater stringFromDate:[NSDate date]]];
     NSString *resultPath = [doctumentsPath stringByAppendingPathComponent:filename];
     
-    WJPhotoPickerController *picker = [[[WJPhotoPickerController alloc] initWithFetchVideo:resultPath presetName:AVAssetExportPresetMediumQuality fetchVideoCallback:^(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath) {
+    WJPhotoPickerController *picker = [[[WJPhotoPickerController alloc] initWithFetchVideo:resultPath presetName:AVAssetExportPresetMediumQuality fetchVideoCallback:^(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath, NSError *error) {
         
         NSLog(@"fetchVideoCallback----filePath----:%@", filePath);
     }] show:self];
