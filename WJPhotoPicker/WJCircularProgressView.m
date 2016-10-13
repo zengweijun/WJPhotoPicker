@@ -117,7 +117,7 @@
 
 @end
 
-@interface WJCircularProgressView ()
+@interface WJCircularProgressView ()<CAAnimationDelegate>
 
 @end
 

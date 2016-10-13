@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.resources = "WJPhotoPicker/Images/*.png"
   s.framework  = "UIKit"
   s.requires_arc = true
-  s.dependency "MBProgressHUD"
+  s.dependency "MBProgressHUD", '~> 0.9.2'
 end

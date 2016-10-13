@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+ // http://www.jianshu.com/p/6cd57c75090f   cocoapods spec 文件验证失败
+
 
 @interface AppDelegate ()
 
