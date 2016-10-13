@@ -10,20 +10,20 @@
 
 @implementation WJPhotoDisplayCell
 
-- (UIImageView *)imageView{
-    if (!_imageView) {
-        UIImageView *imageView = [[UIImageView alloc] init];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.clipsToBounds = YES;
-        imageView.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_imageView = imageView];
+- (WJPhotoDisplayView *)photoDisplayView {
+    if (!_photoDisplayView) {
+        WJPhotoDisplayView *photoDisplayView = [[WJPhotoDisplayView alloc] init];
+        photoDisplayView.frame = self.bounds;
+        photoDisplayView.clipsToBounds = YES;
+        [self addSubview:photoDisplayView];
+        self.photoDisplayView = photoDisplayView;
     }
-    return _imageView;
+    return _photoDisplayView;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.imageView.frame = self.bounds;
+    self.photoDisplayView.frame = self.bounds;
 }
 
 @end

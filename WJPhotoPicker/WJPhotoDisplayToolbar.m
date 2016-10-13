@@ -63,12 +63,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoPickerDoneButtonClicked object:nil];
 }
 
-
 #pragma mark - Notification
 - (void)update {
     NSString *title = [NSString stringWithFormat:@"完成(%zd)", self.seletedAssets.count];
     [self.doneBtn setTitle:title forState:UIControlStateNormal];
-    self.doneBtn.enabled = self.seletedAssets.count;
+    self.doneBtn.enabled = @(self.seletedAssets.count).boolValue;
 }
 
 - (void)layoutSubviews {

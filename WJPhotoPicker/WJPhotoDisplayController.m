@@ -165,7 +165,7 @@ UICollectionViewDelegateFlowLayout
     __weak __typeof(&*cell) wcell = cell;
     [self.gridViewController.groupController asynchronousGetImage:photoAsset thumb:NO completeCb:^(UIImage *image) {
         __strong __typeof(&*wcell) scell = wcell;
-        scell.imageView.image = image;
+        scell.photoDisplayView.imageView.image = image;
     }];
     self.seletedBtn.selected = photoAsset.selected;
     self.photoAsset = photoAsset;

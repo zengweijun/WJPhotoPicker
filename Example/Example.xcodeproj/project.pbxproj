@@ -67,6 +67,7 @@
 		38ED06A31CE59425000DFA96 /* VideoOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 38ED06811CE59425000DFA96 /* VideoOverlay.png */; };
 		38ED06A41CE59425000DFA96 /* VideoOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38ED06821CE59425000DFA96 /* VideoOverlay@2x.png */; };
 		38ED06A51CE59425000DFA96 /* VideoOverlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38ED06831CE59425000DFA96 /* VideoOverlay@3x.png */; };
+		553454301DAF8F5D008B8E9C /* WJPhotoDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5534542F1DAF8F5D008B8E9C /* WJPhotoDisplayView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,8 @@
 		38ED06811CE59425000DFA96 /* VideoOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VideoOverlay.png; sourceTree = "<group>"; };
 		38ED06821CE59425000DFA96 /* VideoOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideoOverlay@2x.png"; sourceTree = "<group>"; };
 		38ED06831CE59425000DFA96 /* VideoOverlay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideoOverlay@3x.png"; sourceTree = "<group>"; };
+		5534542E1DAF8F5D008B8E9C /* WJPhotoDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJPhotoDisplayView.h; sourceTree = "<group>"; };
+		5534542F1DAF8F5D008B8E9C /* WJPhotoDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJPhotoDisplayView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +290,8 @@
 				38ED059F1CE56631000DFA96 /* WJPhotoGroup.m */,
 				38C0E78D1D19466600F2BE8F /* WJPhotoDisplayCell.h */,
 				38C0E78E1D19466600F2BE8F /* WJPhotoDisplayCell.m */,
+				5534542E1DAF8F5D008B8E9C /* WJPhotoDisplayView.h */,
+				5534542F1DAF8F5D008B8E9C /* WJPhotoDisplayView.m */,
 				38ED059A1CE56631000DFA96 /* WJPhotoGridCell.h */,
 				38ED059B1CE56631000DFA96 /* WJPhotoGridCell.m */,
 				38ED05A01CE56631000DFA96 /* WJPhotoGroupCell.h */,
@@ -425,6 +430,7 @@
 				TargetAttributes = {
 					38ED055A1CE565C9000DFA96 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 4DZD7LGET4;
 					};
 					38ED05731CE565CA000DFA96 = {
 						CreatedOnToolsVersion = 7.3;
@@ -540,6 +546,7 @@
 				38ED05A51CE56631000DFA96 /* UIImage+WJPhoto.m in Sources */,
 				38ED06591CE56A57000DFA96 /* WJCircularProgressView.m in Sources */,
 				38ED05AA1CE56631000DFA96 /* WJPhotoGridController.m in Sources */,
+				553454301DAF8F5D008B8E9C /* WJPhotoDisplayView.m in Sources */,
 				38C0E78F1D19466600F2BE8F /* WJPhotoDisplayCell.m in Sources */,
 				38C0E78C1D19439200F2BE8F /* WJPhotoDisplayController.m in Sources */,
 				38ED05AC1CE56631000DFA96 /* WJPhotoGroupCell.m in Sources */,
@@ -695,6 +702,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4DZD7LGET4;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -707,6 +715,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4DZD7LGET4;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

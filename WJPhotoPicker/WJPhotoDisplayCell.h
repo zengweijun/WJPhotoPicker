@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJPhotoDisplayView.h"
 
 @interface WJPhotoDisplayCell : UICollectionViewCell
-@property (nonatomic, weak) UIImageView *imageView;
+@property (nonatomic, weak) WJPhotoDisplayView *photoDisplayView;
 
 
 @end

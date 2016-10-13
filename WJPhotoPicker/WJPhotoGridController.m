@@ -287,6 +287,17 @@ UICollectionViewDelegateFlowLayout
 
 #pragma mark - Selection Button Pressed
 - (void)selectionButtonPressed:(UIButton *)seletedButton photoAsset:(WJPhotoAsset *)photoAsset {
+#if iOS8
+    PHAsset *asset = photoAsset.asset;
+    if (![self isPhotoInLocalAblum:asset]) {
+        UIAlertAction *acion = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:NULL];
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:@"该照片原件存在iCloud，请前往“照片”应用中同步到本地后，再尝试发送" preferredStyle:UIAlertControllerStyleAlert];
+        [alertVc addAction:acion];
+        [self presentViewController:alertVc animated:YES completion:NULL];
+        return;
+    }
+#endif
+    
     if (!seletedButton.isSelected && self.seletedAssets.count >= self.maxCount) {
         NSString *message = [NSString stringWithFormat:@"你最多只能选择%zd张照片", self.maxCount];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
@@ -304,6 +315,17 @@ UICollectionViewDelegateFlowLayout
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoGridCellSeletedButtonDidChage object:nil];
+}
+
+- (BOOL)isPhotoInLocalAblum:(PHAsset *)asset {
+    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+    option.networkAccessAllowed = NO;
+    option.synchronous = YES;
+    __block BOOL isInLocalAblum = YES;
+    [[PHCachingImageManager defaultManager] requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        isInLocalAblum = imageData ? YES : NO;
+    }];
+    return isInLocalAblum;
 }
 
 @end
