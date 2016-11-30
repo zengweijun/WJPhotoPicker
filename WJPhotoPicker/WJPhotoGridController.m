@@ -81,7 +81,7 @@ UICollectionViewDelegateFlowLayout
 - (void) setupToolBar{
     WJPhotoDisplayToolbar *toolBar = [[WJPhotoDisplayToolbar alloc] initWithSeletedAssets:self.seletedAssets callback:NULL];
     [self.view addSubview:toolBar];
-    toolBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+    toolBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
     toolBar.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = NSDictionaryOfVariableBindings(toolBar);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[toolBar]-0-|" options:0 metrics:0 views:views]];
@@ -245,7 +245,7 @@ UICollectionViewDelegateFlowLayout
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WJPhotoAsset *photoAsset = _thumbs[indexPath.item];
+    WJPhotoAsset *photoAsset = self.thumbs[indexPath.item];
     WJPhotoGridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPhotoGridCell" forIndexPath:indexPath];
     cell.photoAsset = photoAsset;
     cell.selectionMode = _selectionMode;
