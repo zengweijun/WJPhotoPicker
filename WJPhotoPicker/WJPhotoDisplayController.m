@@ -11,6 +11,7 @@
 #import "WJPhotoDisplayCell.h"
 #import "WJPhotoCommon.h"
 #import "WJPhotoDisplayToolbar.h"
+#import "MBProgressHUD.h"
 
 @interface WJPhotoDisplayController ()<
 UICollectionViewDataSource,
@@ -162,14 +163,84 @@ UICollectionViewDelegateFlowLayout
     
     WJPhotoAsset *photoAsset = self.thumbs[indexPath.item];
     WJPhotoDisplayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPhotoDisplayCell" forIndexPath:indexPath];
+    self.seletedBtn.selected = photoAsset.selected;
+    self.photoAsset = photoAsset;
+    
     __weak __typeof(&*cell) wcell = cell;
-    [self.gridViewController.groupController asynchronousGetImage:photoAsset thumb:NO completeCb:^(UIImage *image) {
+    [self.gridViewController.groupController asynchronousGetImage:photoAsset thumb:YES completeCb:^(UIImage *image) {
         __strong __typeof(&*wcell) scell = wcell;
         scell.photoDisplayView.imageView.image = image;
     }];
-    self.seletedBtn.selected = photoAsset.selected;
-    self.photoAsset = photoAsset;
+    
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    WJPhotoAsset *photoAsset = self.thumbs[indexPath.item];
+    [self requestImage:photoAsset cell:(WJPhotoDisplayCell *)cell];
+}
+
+- (BOOL)isPhotoInLocalAblum:(PHAsset *)asset {
+    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+    option.networkAccessAllowed = NO;
+    option.synchronous = YES;
+    __block BOOL isInLocalAblum = YES;
+    [self.gridViewController.groupController.cachingImageManager requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        isInLocalAblum = imageData ? YES : NO;
+    }];
+    return isInLocalAblum;
+}
+
+- (void)requestImage:(WJPhotoAsset *)photoAsset cell:(WJPhotoDisplayCell *)cell {
+#if iOS8
+    if ([self isPhotoInLocalAblum:photoAsset.asset]) {
+        self.seletedBtn.enabled = YES;
+        [MBProgressHUD hideHUDForView:cell.photoDisplayView animated:YES];
+        __weak __typeof(&*cell) wcell = cell;
+        [self.gridViewController.groupController asynchronousGetImage:photoAsset thumb:NO completeCb:^(UIImage *image) {
+            __strong __typeof(&*wcell) scell = wcell;
+            scell.photoDisplayView.imageView.image = image;
+        }];
+    } else {
+        self.seletedBtn.enabled = NO;
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:cell.photoDisplayView animated:YES];
+        hud.labelText = @"正在从iCloud同步图片";
+        hud.detailsLabelText = @"0%";
+        
+        PHImageRequestOptions *options = [PHImageRequestOptions new];
+        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.synchronous = NO;
+        options.networkAccessAllowed = YES;
+        
+        __weak __typeof(&*hud) weakHud = hud;
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            __strong __typeof(&*weakHud) strongHud = weakHud;
+            NSLog(@"progress:%f", progress);
+            strongHud.detailsLabelText = [NSString stringWithFormat:@"%.f%%", progress * 100];
+        };
+        __weak __typeof(&*cell) wcell = cell;
+        [self.gridViewController.groupController.cachingImageManager requestImageForAsset:photoAsset.asset targetSize:imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong __typeof(&*weakHud) strongHud = weakHud;
+                __strong __typeof(&*wcell) scell = wcell;
+                if (result) {
+                    scell.photoDisplayView.imageView.image = result;
+                    self.seletedBtn.enabled = YES;
+                    [strongHud hide:YES afterDelay:0.5];
+                } else {
+                    strongHud.labelText = @"从iCloud同步图片失败";
+                    strongHud.detailsLabelText = nil;
+                    strongHud.mode = MBProgressHUDModeText;
+                    self.seletedBtn.enabled = NO;
+                    [strongHud hide:YES afterDelay:1.0];
+                }
+            });
+        }];
+    }
+#else
+    // 暂不支持iOS7
+#endif
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

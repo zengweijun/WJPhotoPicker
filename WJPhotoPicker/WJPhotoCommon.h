@@ -64,10 +64,11 @@ static inline CGSize thumbTargetSize(NSUInteger columns) {
 }
 
 static inline CGSize imageTargetSize() {
-    return CGSizeMake(
-                      ([UIScreen mainScreen].scale * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)),
-                      ([UIScreen mainScreen].scale * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height))
-                      );
+    return PHImageManagerMaximumSize;
+//    return CGSizeMake(
+//                      ([UIScreen mainScreen].scale * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)),
+//                      ([UIScreen mainScreen].scale * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height))
+//                      );
 }
 
 static inline CGSize targertSize(CGSize size) {

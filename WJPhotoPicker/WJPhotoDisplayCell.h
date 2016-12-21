@@ -12,5 +12,4 @@
 @interface WJPhotoDisplayCell : UICollectionViewCell
 @property (nonatomic, weak) WJPhotoDisplayView *photoDisplayView;
 
-
 @end

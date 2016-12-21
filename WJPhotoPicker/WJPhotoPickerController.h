@@ -15,6 +15,8 @@ typedef void(^CompletedCallback)(WJPhotoPickerController *picker, NSArray<WJPhot
 typedef void(^FetchVideoCallback)(WJPhotoPickerController *picker, WJPhotoAsset *asset, NSString *filePath, NSError *error);
 
 @interface WJPhotoPickerController : UIViewController
+@property (nonatomic, strong, readonly) PHCachingImageManager *cachingImageManager;
+
 @property (assign, nonatomic) WJPhotoMediaType mediaType;
 @property (assign, nonatomic) NSInteger maxCount;
 @property (assign, nonatomic) BOOL selectionMode;

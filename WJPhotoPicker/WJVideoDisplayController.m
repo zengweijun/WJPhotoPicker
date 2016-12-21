@@ -83,6 +83,46 @@
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelBtnClicked)];
     self.navigationItem.rightBarButtonItem = cancelBtn;
     
+#if iOS8
+    // 检查视频是否已经下载
+    completeItem.enabled = NO;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"正在从iCloud同步图片";
+    hud.detailsLabelText = @"0%";
+    
+    PHVideoRequestOptions *options = [PHVideoRequestOptions new];
+    options.networkAccessAllowed = YES;
+    options.version = PHImageRequestOptionsVersionOriginal;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
+    __weak __typeof(&*hud) weakHud = hud;
+    options.progressHandler = ^(double progress, NSError *__nullable error, BOOL *stop, NSDictionary *__nullable info) {
+        __strong __typeof(&*weakHud) strongHud = weakHud;
+        NSLog(@"progress:%f", progress);
+        strongHud.detailsLabelText = [NSString stringWithFormat:@"%.1f%%", progress * 100];
+    };
+    
+    [self.gridController.groupController.cachingImageManager requestAVAssetForVideo:self.photoAsset.asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+        NSError *error = info[PHImageErrorKey];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong __typeof(&*weakHud) strongHud = weakHud;
+            __strong __typeof(&*wself) strongSelf = wself;
+            if (error) {
+                completeItem.enabled = NO;
+                strongHud.labelText = @"从iCloud同步视频失败";
+                strongHud.detailsLabelText = nil;
+                strongHud.mode = MBProgressHUDModeText;
+                [strongHud hide:YES afterDelay:1.0];
+            } else {
+                completeItem.enabled = YES;
+                [strongHud hide:YES afterDelay:0.5];
+                [strongSelf toPlay];
+            }
+        });
+    }];
+    
+#else
+    // 暂不支持iOS7
+#endif
     
     // Movie Player Notifications
     // 当回放状态改变时

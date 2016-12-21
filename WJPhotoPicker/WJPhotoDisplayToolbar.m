@@ -58,6 +58,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)doneBtnTouched {
     if (self.callback) self.callback();
     [[NSNotificationCenter defaultCenter] postNotificationName:WJPhotoPickerDoneButtonClicked object:nil];

@@ -322,7 +322,7 @@ UICollectionViewDelegateFlowLayout
     option.networkAccessAllowed = NO;
     option.synchronous = YES;
     __block BOOL isInLocalAblum = YES;
-    [[PHCachingImageManager defaultManager] requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+    [self.groupController.cachingImageManager requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
         isInLocalAblum = imageData ? YES : NO;
     }];
     return isInLocalAblum;

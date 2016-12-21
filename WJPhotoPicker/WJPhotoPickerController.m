@@ -23,6 +23,7 @@
 @property (strong, nonatomic) ALAssetsLibrary *library;
 #endif
 
+@property (nonatomic, strong, readwrite) PHCachingImageManager *cachingImageManager;
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray  *groups;
 @property (strong, nonatomic) WJPhotoGridController *gridVc;
@@ -38,6 +39,7 @@
     if (self = [super init]) {
         _mediaType = WJPhotoMediaTypeAll;
         _selectionMode = YES;
+        _cachingImageManager = [[PHCachingImageManager alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneBtnCallback) name:WJPhotoPickerDoneButtonClicked object:nil];
     }
     return self;
@@ -380,11 +382,10 @@
 }
 
 - (UIImage *)imageWithPHAsset:(PHAsset *)asset thumb:(BOOL)thumb {
-    PHImageManager *imgMgr = [PHImageManager defaultManager];
     PHImageRequestOptions *options = [self optionsSynchronous:YES];
     options.networkAccessAllowed = NO;
     __block UIImage *image = nil;
-    [imgMgr requestImageForAsset:asset targetSize:thumb?thumbTargetSize(4):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+    [self.cachingImageManager requestImageForAsset:asset targetSize:thumb?thumbTargetSize(4):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         image = result;
     }];
     return image;
@@ -393,13 +394,12 @@
 
 
 - (void)asyncImageWithPHAsset:(PHAsset *)asset thumb:(BOOL)thumb completeCb:(void(^)(UIImage *image))completeCb {
-    PHImageManager *imgMgr = [PHImageManager defaultManager];
     PHImageRequestOptions *options = [self optionsSynchronous:NO];
     options.networkAccessAllowed = YES;
     options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         
     };
-    [imgMgr requestImageForAsset:asset targetSize:thumb?thumbTargetSize(4):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+    [self.cachingImageManager requestImageForAsset:asset targetSize:thumb?thumbTargetSize(4):imageTargetSize() contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completeCb) completeCb(result);
         });
@@ -410,9 +410,9 @@
     if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
         PHVideoRequestOptions *options = [PHVideoRequestOptions new];
         options.networkAccessAllowed = YES;
-        options.version = PHImageRequestOptionsVersionCurrent;
+        options.version = PHImageRequestOptionsVersionUnadjusted;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
-        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset *assetd, AVAudioMix *audioMix, NSDictionary *info) {
+        [self.cachingImageManager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset *assetd, AVAudioMix *audioMix, NSDictionary *info) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([assetd isKindOfClass:[AVURLAsset class]]) {
                     if (completeCb) completeCb(((AVURLAsset *)assetd).URL);
@@ -435,7 +435,7 @@
         options.version = PHImageRequestOptionsVersionCurrent;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
         __weak __typeof(&*self) wself = self;
-        [[PHImageManager defaultManager] requestExportSessionForVideo:asset options:options exportPreset:presetName resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
+        [self.cachingImageManager requestExportSessionForVideo:asset options:options exportPreset:presetName resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
             __strong __typeof(&*wself) sself = wself;
             [sself export:exportSession filePath:filePath completeCb:completeCb];
         }];
@@ -450,9 +450,7 @@
     [self exportVideoFileFromPHAsset:asset filePath:filePath presetName:AVAssetExportPresetHighestQuality completeCb:completeCb];
 }
 
-
 #else
-
 - (UIImage *)imageWithALAsset:(ALAsset *)asset thumb:(BOOL)thumb {
     return [UIImage imageWithCGImage:thumb?asset.thumbnail:asset.defaultRepresentation.fullScreenImage];
 }
